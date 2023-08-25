@@ -51,7 +51,6 @@ body {
     flex: 3;
     border: solid;
     height: 200px;
-    background-image: url("../img/pizza.png");
     background-color: #cccccc;
     background-repeat: no-repeat;
     background-position: center;
