@@ -253,6 +253,15 @@
   </View>
   ```
 ***
+### SafeAreaView e StatusBar
+
+- Delimita a região visível da aplicação e uma barra de status
+```javascript
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar />
+    </SafeAreaView>
+```
+***
 #### Ajustando o Layout Atual
 - Efetuar a refatoração dos elementos adicionando os estilos e aplicando o **flex**
     ```javascript
