@@ -1,50 +1,72 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  SafeAreaView,
+  StatusBar,
+  FlatList,
+  Image,
+  Pressable
+} from 'react-native';
+
 import { useState } from 'react';
 
 export default function App() {
-  // let numero = 0
 
   let [texto, atualizaTexto] = useState('');
-  let [numero, atualizarNumero] = useState(0);
   let [lista, addItem] = useState([{ id: 0, nome: 'Vazio' }]);
-
-  const frase = () => {
-    return "Bom dia"
-  }
 
   const textoDigitacao = (texto) => {
     atualizaTexto(texto);
   }
 
-  const incrementar = () => {
-    atualizarNumero(++numero);
+  const removerItem = (item) => {
+    console.log(`Removendo: ${item.id}`)
+    let copia = [...lista]
+    copia.splice(item.id, 1)
+    addItem(copia)
   }
 
-  let letras = [{ id: 1, nome: 'Abacate' }, { id: 2, nome: 'Banana' }, { id: 3, nome: 'Abacaxi' }]
-  let outrasletras = [...letras]
+  const renderGasto = (itemGasto) => {
+    return <Pressable onPress={() => removerItem(lista[itemGasto.id])}>
+      <View style={{
+        borderRadius: 8,
+        borderColor: 'gray',
+        borderWidth: 2,
+        marginBottom: 5
+      }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image style={{ marginLeft: 10 }} source={require('./assets/coin.png')} />
+          <Text style={{ padding: 10 }}>{itemGasto.nome}</Text>
+        </View>
+      </View>
+    </Pressable>
+  }
 
   return (
-    <View style={{ flex: 1, margin: 10, padding: 10, borderColor: "#FF0000", borderWidth: 5 }}>
-      <View style={{ flex: 3, borderColor: "#00FF00", borderWidth: 5 }}>
-        <Text style={{ fontSize: 30 }}>{frase()} {numero} !!!</Text>
-        <Button title='Incrementar' onPress={incrementar} />
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar />
+      <View style={{ flex: 1, margin: 10, padding: 10 }}>
+        <View style={{ flex: 1, justifyContent: 'space-between' }}>
 
-        <TextInput style={{ padding: 10, margin: 10, borderColor: "#FF0000", borderWidth: 1 }}
-          value={texto} onChangeText={textoDigitacao} inputMode='numeric' />
-        <Button title='Novo Valor' onPress={() => {
-          atualizarNumero(parseInt(texto))
-        }} />
+          <TextInput style={{ padding: 10, borderColor: 'gray', borderWidth: 2 }}
+            value={texto} onChangeText={textoDigitacao} />
+          <Button title='Incluir Gasto' onPress={() => {
+            const novoGasto = { id: lista.length, nome: texto }
+            addItem([...lista, novoGasto]);
+          }} />
 
+        </View>
+
+        <View style={{ flex: 4 }}>
+          <FlatList data={lista}
+            renderItem={(gasto) => renderGasto(gasto.item)}
+            keyExtractor={(gasto) => gasto.id} />
+        </View>
       </View>
-      <View style={{ flex: 2, borderColor: "#0000FF", borderWidth: 5 }}>
-        <Button title='Novo Item' onPress={() => {
-          addItem([...lista, { id: lista.length + 1, nome: 'Item Novo' }])
-        }} />
-        {lista.map((item) => <Text style={{ fontSize: 32 }} key={item.id}>{item.nome}</Text>)}
-        <Text>{texto}</Text>
-        <Text>Texto 3</Text>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
