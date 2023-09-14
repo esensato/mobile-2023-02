@@ -262,6 +262,8 @@
     </SafeAreaView>
 ```
 ***
+
+- Para evitar que o teclado influencie no layout basta utilizar o componente `<KeyboardAvoidingView>`
 #### Ajustando o Layout Atual
 - Efetuar a refatoração dos elementos adicionando os estilos e aplicando o **flex**
     ```javascript
@@ -421,7 +423,7 @@
 `import { StyleSheet, Text, View, Pressable } from 'react-native';`
 - Mover a função `renderGasto` de `App.js` para `RenderGasto.js`
   ```javascript
-  const RenderGasto = (props) => {
+  export const RenderGasto = (props) => {
       return <Pressable onPress={() => console.log("Remover...")}>
         <View style={styles.itemgasto}>
         <Text style={styles.item}>{props.item} {props.index}</Text>
@@ -445,8 +447,6 @@
     }
   });
   ```
-- Tornar o componente acessível fora do arquivo em que está definido:
-`module.exports.RenderGasto = RenderGasto;`
 - Em `App` referenciar o componente por meio de `import`
 `import { RenderGasto } from './components/RenderGasto'`
 

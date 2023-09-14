@@ -8,7 +8,8 @@ import {
   StatusBar,
   FlatList,
   Image,
-  Pressable
+  Pressable,
+  KeyboardAvoidingView
 } from 'react-native';
 
 import { useState } from 'react';
@@ -22,15 +23,15 @@ export default function App() {
     atualizaTexto(texto);
   }
 
-  const removerItem = (item) => {
-    console.log(`Removendo: ${item.id}`)
+  const removerItem = (itemRemover) => {
+    console.log(`Removendo: ${itemRemover}`)
     let copia = [...lista]
-    copia.splice(item.id, 1)
+    copia = copia.filter((itemLista) => itemRemover.id != itemLista.id)
     addItem(copia)
   }
 
   const renderGasto = (itemGasto) => {
-    return <Pressable onPress={() => removerItem(lista[itemGasto.id])}>
+    return <Pressable onPress={() => removerItem(itemGasto)}>
       <View style={{
         borderRadius: 8,
         borderColor: 'gray',
@@ -48,24 +49,25 @@ export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <View style={{ flex: 1, margin: 10, padding: 10 }}>
-        <View style={{ flex: 1, justifyContent: 'space-between' }}>
 
-          <TextInput style={{ padding: 10, borderColor: 'gray', borderWidth: 2 }}
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <View style={{ flex: 1, margin: 10, padding: 10 }}>
+
+          <TextInput style={{ marginBottom: 10, padding: 10, borderColor: 'gray', borderWidth: 2 }}
             value={texto} onChangeText={textoDigitacao} />
+
           <Button title='Incluir Gasto' onPress={() => {
             const novoGasto = { id: lista.length, nome: texto }
             addItem([...lista, novoGasto]);
           }} />
 
-        </View>
-
-        <View style={{ flex: 4 }}>
-          <FlatList data={lista}
+          <FlatList data={lista} style={{ marginTop: 10 }}
             renderItem={(gasto) => renderGasto(gasto.item)}
             keyExtractor={(gasto) => gasto.id} />
         </View>
-      </View>
+
+
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
