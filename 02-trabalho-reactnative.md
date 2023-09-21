@@ -51,7 +51,7 @@ Exibir o <b>name</b> na lista
 </tr>
 <tr>
 <td>
-<img src="img/trab02-02.png" width="200px" height="300px">
+<img src="./img/trab02-02.png" width="200px" height="300px">
 </td>
 <td valign="top">
 Ao clicar sobre o nome de uma universidade na lista persistir no banco de dados o nome da universidade e a <b>web_pages</b> (obter o primeiro da lista do array)<br><br>
@@ -62,7 +62,7 @@ Direcionar para a página de Favoritos
 </tr>
 <tr>
 <td>
-<img src="img/trab02-03.png" width="200px" height="300px">
+<img src="./img/trab02-03.png" width="200px" height="300px">
 </td>
 <td valign="top" >
 Efetuar uma pesquisa no banco de dados e listar os sites das universidades favoritas
