@@ -4,7 +4,7 @@
     - nome jogador local
     - nome jogador remoto
     - número escolhido pelo jogador local
-
+    
 - Criar uma tela para que o usuário informe seu username e o número desejado
 - Exemplo:
 ```dart
