@@ -9,20 +9,43 @@ import {
   Pressable
 } from 'react-native';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { EntradaGasto } from './EntradaGasto'
 import { ListaGasto } from './ListaGasto'
+
+import axios from 'axios';
+
+import { inserirGasto, listarGastos, iniciar } from './BancoDados';
 
 export const Principal = (props) => {
 
   let [lista, addItem] = useState([{ id: 0, nome: 'Vazio', valor: 0 }]);
   let [visivel, setVisivel] = useState(false);
 
+  axios.get("https://controle-gastos.glitch.me/").then((ret) => {
+
+    ret.data.forEach((item) => console.log(item.descricao))
+
+  })
+
+  useEffect(() => {
+    iniciar().then((ret) => {
+      listarGastos().then((ret) => {
+
+        console.log('Consulta', ret)
+        addItem(ret);
+
+      }).catch((err) => console.log(err))
+    }).catch((err) => console.log(err))
+  }, [])
+
   const adicionarItem = (nomeItem, valorItem) => {
-    const novoGasto = { id: lista.length, nome: nomeItem, valor: valorItem }
+    const novoGasto = { id: lista.length, descricao: nomeItem, valor: valorItem }
     addItem([...lista, novoGasto]);
     setVisivel(true);
+
+    inserirGasto(nomeItem, valorItem)
   }
 
   return (

@@ -32,7 +32,7 @@ export const ListaGasto = (props) => {
 
                 <Pressable style={{ flex: 15 }} onPress={() => removerItem(itemGasto)}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ padding: 10 }}>{itemGasto.nome}</Text>
+                        <Text style={{ padding: 10 }}>{itemGasto.descricao}</Text>
                         <Text style={{ padding: 10 }}>{itemGasto.valor}</Text>
                     </View>
                 </Pressable >
