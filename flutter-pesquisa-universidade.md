@@ -96,7 +96,7 @@ return Form(
 - Criar uma função para construir campos de texto
 
 ```dart
-  Widget buildTextFormField({label = "", contro}) {
+  Widget buildTextFormField({label = "", controller}) {
     return Padding(padding: const EdgeInsets.all(10.0),
       child: TextFormField(  decoration: InputDecoration(
         border: const UnderlineInputBorder(),
